@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 direccion;
     [SerializeField]
     private float fuerzadesalto = 100f;
+    [SerializeField]
+    private float velocidadX;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,6 +22,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
+        {
             rb2b.AddForce(direccion * fuerzadesalto);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            rb2b.AddForce(Vector2.left * velocidadX);
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            rb2b.AddForce(Vector2.right * velocidadX);
+        }
+
     }
+    
 }
