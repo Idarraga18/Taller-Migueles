@@ -5,35 +5,35 @@ using System.ComponentModel;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private int vida = 10;
+    private int vida = 15;
     [SerializeField]
-    private int puntos;
+    private int puntos = 0;
     [SerializeField]
-    private float tiempo = 60f;
-    [SerializeField]
-    private int tiempoEntero;
+    private float tiempoMaximo = 60f;
 
+    private float tiempoRestante;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (tiempo > 0f)
+        tiempoRestante = tiempoMaximo;
+    }
+
+    private void Update()
+    {
+        tiempoRestante -= Time.deltaTime;
+        
+            if (tiempoRestante <= 0)
         {
-            tiempo -= Time.deltaTime;
-            tiempoEntero = (int)tiempo;
-
-            Debug.Log("tiempo restante:" + Mathf.CeilToInt(tiempo));
-
+            tiempoRestante = 0;
+            SceneManager.LoadScene("taller");
         }
-        if (tiempoEntero > 0f)
-            SceneManager.LoadScene("Taller");
 
     }
-   public void SumarPuntos(int cantidad)
+
+    public void SumarPuntos(int cantidad)
     {
-        puntos = cantidad;
+        puntos += cantidad;
     }
-
     public void RestarVida(int cantidad)
 
     {
@@ -47,4 +47,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SumarVida(int cantidad)
+    {
+        vida += cantidad;
+    }
+
+    public float ObtenerTiempoRestante()
+    { 
+        return tiempoRestante;
+    }
+
+    public void AgregarTiempo(float segundos)
+    {
+        tiempoRestante += segundos;
+    }
 }
