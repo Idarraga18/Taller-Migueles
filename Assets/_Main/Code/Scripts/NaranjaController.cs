@@ -1,21 +1,16 @@
 using UnityEngine;
 
-public class NaranjaController : MonoBehaviour
+public class AzulController : MonoBehaviour
 {
     [SerializeField]
-    private float tiempoExtra = 5f;
+    private GameManager gameManager;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            GameManager gameManager = FindObjectOfType<GameManager>();
-            if (gameManager != null)
-            {
-                gameManager.AgregarTiempo(tiempoExtra);
-            }
-
-            Destroy(gameObject);
+            gameManager.SumarVida(1);
+            Destroy(this.gameObject);
         }
     }
 }

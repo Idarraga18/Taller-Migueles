@@ -10,8 +10,12 @@ public class GameManager : MonoBehaviour
     private int puntos = 0;
     [SerializeField]
     private float tiempoMaximo = 60f;
-
+    [SerializeField]
     private float tiempoRestante;
+    [SerializeField]
+    private GameObject obstaculo;
+    [SerializeField]
+    private bool tieneLlave = false;
 
     private void Start()
     {
@@ -31,7 +35,14 @@ public class GameManager : MonoBehaviour
     }
 
     public void SumarPuntos(int cantidad)
+      
     {
+        puntos++;
+        if (puntos >= 10 && obstaculo != null)
+        {
+            Destroy(obstaculo);
+            obstaculo = null;
+        }
         puntos += cantidad;
     }
     public void RestarVida(int cantidad)
@@ -60,5 +71,14 @@ public class GameManager : MonoBehaviour
     public void AgregarTiempo(float segundos)
     {
         tiempoRestante += segundos;
+    }
+    public void RecogerLlave()
+    {
+        tieneLlave= true;
+
+    }
+    public int ObtenerPuntos()
+    {
+        return puntos;
     }
 }
