@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI tiempoUI;
     [SerializeField]
     private TextMeshProUGUI tienellaveUI;
-   
+
 
 
     private void Start()
@@ -35,18 +35,20 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape)) Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+
         tiempoRestante -= Time.deltaTime;
-        
-            if (tiempoRestante <= 0)
+        if (tiempoRestante <= 0)
+
         {
             tiempoRestante = 0;
-            SceneManager.LoadScene("taller");
+            SceneManager.LoadScene("Perdiste");
+       
         }
-
     }
 
     public void SumarPuntos(int cantidad)
-      
+
     {
         puntos++;
         if (puntos >= 10 && obstaculo != null)
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
     {
         if (vida <= 0)
         {
-            SceneManager.LoadScene("taller");
+            SceneManager.LoadScene("Perdiste");
         }
         else
         {
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
     }
 
     public float ObtenerTiempoRestante()
-    { 
+    {
         return tiempoRestante;
     }
 
@@ -89,7 +91,7 @@ public class GameManager : MonoBehaviour
     }
     public void RecogerLlave()
     {
-        tieneLlave= true;
+        tieneLlave = true;
         ActualizaUI();
 
     }
@@ -100,11 +102,12 @@ public class GameManager : MonoBehaviour
 
     private void ActualizaUI()
     {
-        if (puntosUI != null) puntosUI.text = "puntos:   " + puntos; 
-        if (vidaUI != null) vidaUI.text = "vida:   " + vida; 
-        if (tiempoUI != null) tiempoUI.text = "tiempo:   " + math.ceil(tiempoRestante); 
-        if (tienellaveUI != null) tienellaveUI.text = "tienellave:   " + tieneLlave; 
+        if (puntosUI != null) puntosUI.text = "puntos:   " + puntos;
+        if (vidaUI != null) vidaUI.text = "vida:   " + vida;
+        if (tiempoUI != null) tiempoUI.text = "tiempo:   " + math.ceil(tiempoRestante);
+        if (tienellaveUI != null) tienellaveUI.text = "tienellave:   " + tieneLlave;
 
     }
+ 
 
 }
