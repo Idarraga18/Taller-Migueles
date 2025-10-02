@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Vector2 direccion;
     [SerializeField]
-    private float fuerzadesalto = 100f;
+    private float fuerzadesalto = 50f;
     [SerializeField]
     private float velocidadX;
 

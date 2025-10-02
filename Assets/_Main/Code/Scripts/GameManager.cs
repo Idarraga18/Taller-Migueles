@@ -26,17 +26,18 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI tienellaveUI;
 
-
+  
 
     private void Start()
     {
         tiempoRestante = tiempoMaximo;
+
+      
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-
+       
         tiempoRestante -= Time.deltaTime;
         if (tiempoRestante <= 0)
 
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Perdiste");
        
         }
+       
     }
 
     public void SumarPuntos(int cantidad)
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
         else
         {
             vida -= cantidad;
+          
         }
         ActualizaUI();
     }
@@ -77,6 +80,7 @@ public class GameManager : MonoBehaviour
     {
         vida += cantidad;
         ActualizaUI();
+         
     }
 
     public float ObtenerTiempoRestante()
@@ -108,6 +112,28 @@ public class GameManager : MonoBehaviour
         if (tienellaveUI != null) tienellaveUI.text = "tienellave:   " + tieneLlave;
 
     }
- 
+    public void EstadoDelJuego(string estado)
+    {
+        switch (estado)
+        {
+            case "Pause":
+
+                Time.timeScale = (Time.timeScale == 0) ? 1 : 0;
+                break;
+                
+            case "Ganaste":
+                SceneManager.LoadScene("Ganaste");
+                break;
+            case "Perdiste":
+                SceneManager.LoadScene(2);
+                break;
+            case "Salir":
+                Application.Quit();
+                break;
+        }
+        
+
+        }
+    
 
 }
