@@ -8,7 +8,7 @@ public class HuesosController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            gameManager.SumarPuntos(1);
+            gameManager.SumarPuntos(0);
             Destroy(this.gameObject);
         }
     }

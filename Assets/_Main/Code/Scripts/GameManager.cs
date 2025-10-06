@@ -6,11 +6,11 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private int vida = 15;
+    private int vida = 5;
     [SerializeField]
     private int puntos = 0;
     [SerializeField]
-    private float tiempoMaximo = 125f;
+    private float tiempoMaximo = 60f;
     [SerializeField]
     private float tiempoRestante;
     [SerializeField]
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI tiempoUI;
     [SerializeField]
     private TextMeshProUGUI tienellaveUI;
+    public UIManager uimanager;
 
   
 
@@ -110,6 +111,7 @@ public class GameManager : MonoBehaviour
         if (vidaUI != null) vidaUI.text = "vida:   " + vida;
         if (tiempoUI != null) tiempoUI.text = "tiempo:   " + math.ceil(tiempoRestante);
         if (tienellaveUI != null) tienellaveUI.text = "tienellave:   " + tieneLlave;
+        uimanager.ActualizarVIdaUI(vida);
 
     }
     public void EstadoDelJuego(string estado)

@@ -5,19 +5,20 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private Image[] spritesCorazon;
-    
+    private Sprite[] spritesCorazon;
+    [SerializeField]
+    private Image imagencorazones;
 
-    private void Start()
+
+    public void Start()
     {
         
-        for (int i = 0; i < 4; i++)
-        {
-            spritesCorazon[i].enabled = false;  
-        }
-        
-
     }
-
-  
+    public void ActualizarVIdaUI(int vida)
+    {
+        if(imagencorazones!=null && vida >=0 && vida < spritesCorazon.Length)
+        {
+            imagencorazones.sprite = spritesCorazon[vida];
+        }
+    }
 }
