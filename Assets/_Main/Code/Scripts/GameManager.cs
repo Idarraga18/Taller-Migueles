@@ -1,110 +1,142 @@
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.SceneManagement;
-using System.ComponentModel;
 using TMPro;
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private int vida = 15;
-    [SerializeField]
-    private int puntos = 0;
-    [SerializeField]
-    private float tiempoMaximo = 125f;
-    [SerializeField]
+
+
+    [Header("Puntos")]
+    public int puntos = 1;
+    public TextMeshProUGUI puntosUI;
+    public GameObject obstaculo;
+
+    [Header("Llave")]
+    public bool TieneLlave = false;
+    public TextMeshProUGUI llaveUI;
+
+    [Header("Vida")]
+    public int vida = 3;
+    public TextMeshProUGUI vidaUI;
+
+    [Header("Tiempo")]
+    public float tiempoInicial = 60f;
     private float tiempoRestante;
-    [SerializeField]
-    private GameObject obstaculo;
-    [SerializeField]
-    private bool tieneLlave = false;
-    [SerializeField]
-    private TextMeshProUGUI vidaUI;
-    [SerializeField]
-    private TextMeshProUGUI puntosUI;
-    [SerializeField]
-    private TextMeshProUGUI tiempoUI;
-    [SerializeField]
-    private TextMeshProUGUI tienellaveUI;
-   
+    public TextMeshProUGUI tiempoUI;
+    public UIManager uiManager;
+
 
 
     private void Start()
     {
-        tiempoRestante = tiempoMaximo;
+        tiempoRestante = tiempoInicial;
+        ActualizarUI();
     }
 
     private void Update()
     {
+        // Reducir el tiempo cada frame
         tiempoRestante -= Time.deltaTime;
-        
-            if (tiempoRestante <= 0)
+
+        if (tiempoRestante <= 0)
         {
-            tiempoRestante = 0;
-            SceneManager.LoadScene("taller");
+            // Reinicia la escena si se acaba el tiempo
+            SceneManager.LoadScene("Perdiste");
         }
+
+        ActualizarUI();
+    }
+
+    public void SumarVida()
+    {
+        vida++;
+        vida = math.clamp(vida, 0, 4);
+        ActualizarUI();
 
     }
 
-    public void SumarPuntos(int cantidad)
-      
+    public void RestarVida()
+    {
+        vida--;
+        vida = math.clamp(vida, 0, 4);
+        ActualizarUI();
+
+    }
+
+    public void SumarPunto()
     {
         puntos++;
         if (puntos >= 10 && obstaculo != null)
         {
             Destroy(obstaculo);
-            obstaculo = null;
         }
-        puntos += cantidad;
-        ActualizaUI();
+        ActualizarUI();
     }
-    public void RestarVida(int cantidad)
 
+    public void Perder()
     {
+
+
         if (vida <= 0)
         {
-            SceneManager.LoadScene("taller");
+            SceneManager.LoadScene("Perdiste");
         }
-        else
-        {
-            vida -= cantidad;
-        }
-        ActualizaUI();
+        ActualizarUI();
+
     }
 
-    public void SumarVida(int cantidad)
-    {
-        vida += cantidad;
-        ActualizaUI();
-    }
-
-    public float ObtenerTiempoRestante()
-    { 
-        return tiempoRestante;
-    }
-
-    public void AgregarTiempo(float segundos)
-    {
-        tiempoRestante += segundos;
-        ActualizaUI();
-    }
     public void RecogerLlave()
     {
-        tieneLlave= true;
-        ActualizaUI();
-
-    }
-    public int ObtenerPuntos()
-    {
-        return puntos;
+        TieneLlave = true;
+        ActualizarUI();
     }
 
-    private void ActualizaUI()
+    public void SumarTiempo(float cantidad)
     {
-        if (puntosUI != null) puntosUI.text = "puntos:   " + puntos; 
-        if (vidaUI != null) vidaUI.text = "vida:   " + vida; 
-        if (tiempoUI != null) tiempoUI.text = "tiempo:   " + math.ceil(tiempoRestante); 
-        if (tienellaveUI != null) tienellaveUI.text = "tienellave:   " + tieneLlave; 
+        tiempoRestante += cantidad;
+        ActualizarUI();
+    }
 
+    private void ActualizarUI()
+    {
+
+        if (puntosUI != null) puntosUI.text = "Puntos: " + puntos;
+        if (vidaUI != null) vidaUI.text = "Vida: " + vida;
+        if (llaveUI != null) llaveUI.text = "Llave: " + (TieneLlave ? "Sí" : "No");
+        if (tiempoUI != null) tiempoUI.text = "Tiempo: " + Mathf.Ceil(tiempoRestante);
+        if (uiManager != null) uiManager.ActualizarUIVida(vida);
+        if (uiManager != null) uiManager.CambiarLlave(TieneLlave);
+    }
+    public void AdquirirLlave(bool tienellave)
+    {
+        TieneLlave = tienellave;
+        ActualizarUI();
+    }
+
+    public void EstadoDelJuego(string estado)
+    {
+        switch (estado)
+        {
+            case "Play":
+                Time.timeScale = 1;
+                break;
+            case "pause":
+                Time.timeScale = 0;
+                break;
+            case "Ganaste":
+                SceneManager.LoadScene("Ganaste");
+                break;
+            case "Perdiste":
+                SceneManager.LoadScene("Perdiste");
+                break;
+            case "Salir":
+                Application.Quit();
+                break;
+            case "Volver":
+                SceneManager.LoadScene("Taller");
+                break;
+
+        }
     }
 
 }
