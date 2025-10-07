@@ -1,73 +1,69 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ManagerUI : MonoBehaviour
 {
-    [SerializeField]
-    private bool isPaused = false;
-    [SerializeField]
-    private GameObject panel;
-    [SerializeField]
-    private Sprite[] spritesCorazon;
-    [SerializeField]
-    private Image imCorazones;
-    [SerializeField]
-    private Color conllave;
-    [SerializeField]
-    private Color sinllave;
-    [SerializeField]
-    private Image imLlave;
+    [SerializeField] private bool isPaused = false;
+    [SerializeField] private GameObject panel;
+    [SerializeField] private Sprite[] spritesCorazon; // [0] vacío, [1] medio, [2] lleno (por ejemplo)
+    [SerializeField] private Image[] imCorazones;     // Array de imágenes de corazones en la UI
+    [SerializeField] private Color conllave;
+    [SerializeField] private Color sinllave;
+    [SerializeField] private Image imLlave;
+
     void Update()
     {
-
-
-        // Detectar cuando se presiona la tecla Escape
+        // Detectar tecla Escape para pausar o reanudar
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
-            {
                 ResumeGame();
-            }
             else
-            {
                 Pause();
-            }
         }
     }
 
     void Pause()
     {
         panel.SetActive(true);
-        Time.timeScale = 0f; // Detiene el tiempo del juego
+        Time.timeScale = 0f;
         isPaused = true;
-
-
     }
 
     void ResumeGame()
     {
         panel.SetActive(false);
-        Time.timeScale = 1f; // Reanuda el tiempo del juego
+        Time.timeScale = 1f;
         isPaused = false;
-
     }
 
-    public void CambiarLlave(bool t)
+    public void CambiarLlave(bool tieneLlave)
     {
-        imLlave.color = t ? conllave : sinllave;
+        imLlave.color = tieneLlave ? conllave : sinllave;
     }
 
-
-
+    
     public void ActualizarUIVida(int vidaActual)
     {
-        if (imCorazones != null && vidaActual >= 0 && vidaActual < spritesCorazon.Length)
+        if (imCorazones == null || imCorazones.Length == 0)
         {
-            imCorazones.sprite = spritesCorazon[vidaActual];
+            Debug.LogError("No hay imágenes de corazones asignadas en el inspector.");
+            return;
         }
-        else
+
+        // Recorremos todos los corazones y actualizamos su sprite
+        for (int i = 0; i < imCorazones.Length; i++)
         {
-            Debug.LogError("No esta en el rango o la imagen no esta asiganda");
+            if (i < vidaActual)
+            {
+                // Corazón lleno
+                imCorazones[i].sprite = spritesCorazon[2];
+            }
+            else
+            {
+                // Corazón vacío
+                imCorazones[i].sprite = spritesCorazon[0];
+            }
         }
     }
 }
