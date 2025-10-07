@@ -3,6 +3,7 @@ using UnityEngine;
 public class ObstaculoController : MonoBehaviour
 {
     private GameManager gameManager;
+    public int puntonnecesarios = 10;
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -10,7 +11,7 @@ public class ObstaculoController : MonoBehaviour
 
     void Update()
     {
-        if (gameManager != null && gameManager.ObtenerPuntos() >= 10)
+        if (gameManager != null && gameManager.puntos >= puntonnecesarios)
         {
             Destroy(gameObject);
         }

@@ -9,7 +9,7 @@ public class AzulController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            gameManager.SumarVida(1);
+            gameManager.SumarVida();
             Destroy(this.gameObject);
         }
     }

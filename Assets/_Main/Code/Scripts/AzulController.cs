@@ -12,7 +12,7 @@ public class NaranjaController : MonoBehaviour
             GameManager gameManager = FindObjectOfType<GameManager>();
             if (gameManager != null)
             {
-                gameManager.AgregarTiempo(tiempoExtra);
+                gameManager.SumarTiempo(tiempoExtra);
             }
 
             Destroy(gameObject);

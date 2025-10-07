@@ -12,7 +12,7 @@ public class TrampasController : MonoBehaviour
 
 
         {
-            gameManager.RestarVida(1);
+            gameManager.RestarVida();
         }
         
     }

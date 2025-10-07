@@ -3,14 +3,24 @@ using UnityEngine.SceneManagement;
 
 public class PuertaController : MonoBehaviour
 {
+    [SerializeField]
+    GameManager gameManager;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
-            GameManager gameManager = FindObjectOfType<GameManager>();
+            gameManager = gameManager;
 
-            Debug.Log("llegue pues perra");
-            SceneManager.LoadScene("Ganaste");
+            if (gameManager.TieneLlave)
+            {
+                //mensajeUI.text = "¡GANASTE!";
+                //Time.timeScale = 0f; // Pausa el juego
+                SceneManager.LoadScene("Ganaste");
+            }
+            else
+            {
+                // mensajeUI.text = "Necesitas la llave...";
+            }
         }
     }
 }
