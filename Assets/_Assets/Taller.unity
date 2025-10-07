@@ -9261,6 +9261,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5391084866064270026, guid: 510b2213595e54543a76c455e519c0a9, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1863017306}
+    - targetCorrespondingSourceObject: {fileID: 5391084866064270026, guid: 510b2213595e54543a76c455e519c0a9, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1863017305}
     - targetCorrespondingSourceObject: {fileID: 5391084866064270026, guid: 510b2213595e54543a76c455e519c0a9, type: 3}
       insertIndex: -1
@@ -9330,6 +9333,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 2144077123}
+--- !u!114 &1863017306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863017303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5fedd6be6cc594d9f70d84c12a8044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 5
+  jumpForce: 20
+  rb2d: {fileID: 0}
+  isGrounded: 1
+  v2: {x: 10, y: 10}
+  estaminaMax: 100
+  estaminaActual: 0
+  consumoMovimiento: 10
+  consumoSalto: 15
+  regeneracion: 20
+  velocidadReducida: 2.5
+  estaminaCero: 0
 --- !u!1 &1893870822
 GameObject:
   m_ObjectHideFlags: 0
@@ -23942,7 +23969,12 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1972109201
+--- !u!4 &1972109205 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6582747259845169099, guid: a3879484d58e7e84aae7907b2f321e29, type: 3}
+  m_PrefabInstance: {fileID: 5775385649602325139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1972109206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23954,20 +23986,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5fedd6be6cc594d9f70d84c12a8044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb2b: {fileID: 1972109202}
-  direccion: {x: 0.5, y: 0.5}
-  fuerzadesalto: 300
-  velocidadX: 2
---- !u!50 &1972109202 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 8162355987774026208, guid: a3879484d58e7e84aae7907b2f321e29, type: 3}
-  m_PrefabInstance: {fileID: 5775385649602325139}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1972109205 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6582747259845169099, guid: a3879484d58e7e84aae7907b2f321e29, type: 3}
-  m_PrefabInstance: {fileID: 5775385649602325139}
-  m_PrefabAsset: {fileID: 0}
+  velocidad: 5
+  jumpForce: 7
+  rb2d: {fileID: 0}
+  isGrounded: 1
+  v2: {x: 0, y: 0}
+  estaminaMax: 100
+  estaminaActual: 0
+  consumoMovimiento: 10
+  consumoSalto: 15
+  regeneracion: 20
+  velocidadReducida: 2.5
+  estaminaCero: 0
 --- !u!1001 &2023860888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24780,7 +24810,7 @@ PrefabInstance:
       addedObject: {fileID: 1972109200}
     - targetCorrespondingSourceObject: {fileID: 6176787615481303844, guid: a3879484d58e7e84aae7907b2f321e29, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1972109201}
+      addedObject: {fileID: 1972109206}
   m_SourcePrefab: {fileID: 100100000, guid: a3879484d58e7e84aae7907b2f321e29, type: 3}
 --- !u!1001 &5883962242517377663
 PrefabInstance:
